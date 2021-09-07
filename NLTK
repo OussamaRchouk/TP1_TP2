@@ -1,0 +1,1093 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "kernelspec": {
+      "display_name": "Python 3",
+      "language": "python",
+      "name": "python3"
+    },
+    "language_info": {
+      "codemirror_mode": {
+        "name": "ipython",
+        "version": 3
+      },
+      "file_extension": ".py",
+      "mimetype": "text/x-python",
+      "name": "python",
+      "nbconvert_exporter": "python",
+      "pygments_lexer": "ipython3",
+      "version": "3.8.5"
+    },
+    "colab": {
+      "name": "NLTK.ipynb",
+      "provenance": [],
+      "include_colab_link": true
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/OussamaRchouk/TP1_TP2/blob/main/NLTK\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "bSf5IeMfRo7k"
+      },
+      "source": [
+        "# NLTK "
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "0YWaS7OaRo8b"
+      },
+      "source": [
+        "### Importing libraries"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "WrFSnLyQRo8f"
+      },
+      "source": [
+        "import nltk, string"
+      ],
+      "execution_count": 1,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "ZNISUVHaRo8k"
+      },
+      "source": [
+        "### Testing data"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "x6ePz36dRo8o"
+      },
+      "source": [
+        "english_text = \"\"\"Perhaps one of the most significant advances made by Arabic mathematics began at this time with the work of al-Khwarizmi, namely the beginnings of algebra. It is important to understand just how significant this new idea was. It was a revolutionary move away from the Greek concept of mathematics which was essentially geometry. Algebra was a unifying theory which allowedrational numbers,irrational numbers, geometrical magnitudes, etc., to all be treated as \\\"algebraic objects\\\". It gave mathematics a whole new development path so much broader in concept to that which had existed before, and provided a vehicle for future development of the subject. Another important aspect of the introduction of algebraic ideas was that it allowed mathematics to be applied to itselfin a way which had not happened before.\"\"\""
+      ],
+      "execution_count": 2,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 120
+        },
+        "id": "7pNXdkbBRo8s",
+        "outputId": "7a8df832-e65d-44ba-a9b1-bcc31f77212f"
+      },
+      "source": [
+        "english_text"
+      ],
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "string"
+            },
+            "text/plain": [
+              "'Perhaps one of the most significant advances made by Arabic mathematics began at this time with the work of al-Khwarizmi, namely the beginnings of algebra. It is important to understand just how significant this new idea was. It was a revolutionary move away from the Greek concept of mathematics which was essentially geometry. Algebra was a unifying theory which allowedrational numbers,irrational numbers, geometrical magnitudes, etc., to all be treated as \"algebraic objects\". It gave mathematics a whole new development path so much broader in concept to that which had existed before, and provided a vehicle for future development of the subject. Another important aspect of the introduction of algebraic ideas was that it allowed mathematics to be applied to itselfin a way which had not happened before.'"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 3
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "Bc8y3DIfRo81"
+      },
+      "source": [
+        "arabic_text =\"\"\"ربما كانت أحد أهم التطورات التي قامت بها الرياضيات العربية التي بدأت في هذا الوقت بعمل الخوارزمي وهي بدايات الجبر, ومن المهم فهم كيف كانت هذه الفكرة الجديدة مهمة, فقد كانت خطوة نورية بعيدا عن المفهوم اليوناني للرياضيات التي هي في جوهرها هندسة, الجبر کان نظرية موحدة تتيح الأعداد الكسرية والأعداد اللا كسرية, والمقادير الهندسية وغيرها, أن تتعامل على أنها أجسام جبرية, وأعطت الرياضيات ككل مسارا جديدا للتطور بمفهوم أوسع بكثير من الذي كان موجودا من قبل, وقم وسيلة للتنمية في هذا الموضوع مستقبلا. وجانب آخر مهم لإدخال أفكار الجبر وهو أنه سمح بتطبيق الرياضيات على نفسها بطريقة لم تحدث من قبل\"\"\""
+      ],
+      "execution_count": 4,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 69
+        },
+        "id": "TmApWaCpRo87",
+        "outputId": "3654ad02-28f9-4db0-d079-74a2f9a0d4a7"
+      },
+      "source": [
+        "arabic_text"
+      ],
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "string"
+            },
+            "text/plain": [
+              "'ربما كانت أحد أهم التطورات التي قامت بها الرياضيات العربية التي بدأت في هذا الوقت بعمل الخوارزمي وهي بدايات الجبر, ومن المهم فهم كيف كانت هذه الفكرة الجديدة مهمة, فقد كانت خطوة نورية بعيدا عن المفهوم اليوناني للرياضيات التي هي في جوهرها هندسة, الجبر کان نظرية موحدة تتيح الأعداد الكسرية والأعداد اللا كسرية, والمقادير الهندسية وغيرها, أن تتعامل على أنها أجسام جبرية, وأعطت الرياضيات ككل مسارا جديدا للتطور بمفهوم أوسع بكثير من الذي كان موجودا من قبل, وقم وسيلة للتنمية في هذا الموضوع مستقبلا. وجانب آخر مهم لإدخال أفكار الجبر وهو أنه سمح بتطبيق الرياضيات على نفسها بطريقة لم تحدث من قبل'"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 5
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "klVvNGDrRo9D"
+      },
+      "source": [
+        "### Data Cleaning"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "FHEiuYmJRo9F"
+      },
+      "source": [
+        "#### Lower Case"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "5KxdmVr8Ro9G"
+      },
+      "source": [
+        "english_text= english_text.lower()"
+      ],
+      "execution_count": 6,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "Bn3bl-xDRo9J"
+      },
+      "source": [
+        "#### Eliminate Ponctuation"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "KXZbTJOzRo9L"
+      },
+      "source": [
+        "#english_text_clear = ''.join([x for x in english_text if x not in string.punctuation])\n",
+        "#arabic_text_clear = ''.join([x for x in arabic_text if x not in string.punctuation])"
+      ],
+      "execution_count": 7,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "GKS3bxf0Ro9Q"
+      },
+      "source": [
+        "#print(english_text_clear)\n",
+        "#print(arabic_text_clear)"
+      ],
+      "execution_count": 8,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "5jibZrPbRo9S"
+      },
+      "source": [
+        "### Tokinization"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "aBW1sXbaRo9T"
+      },
+      "source": [
+        "from nltk.tokenize import sent_tokenize, word_tokenize"
+      ],
+      "execution_count": 9,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "43e-vvlTRo9V"
+      },
+      "source": [
+        "#### Tokenizing by word"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "lTAoY6nrRo9W",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 612
+        },
+        "outputId": "eb2d114e-2bb4-4be3-dbb9-d22b9168eb40"
+      },
+      "source": [
+        "eng_words = word_tokenize(english_text)\n",
+        "ar_words = nltk.word_tokenize(arabic_text)"
+      ],
+      "execution_count": 10,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "LookupError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mLookupError\u001b[0m                               Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-10-9ab7cfc51bb1>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0meng_words\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mword_tokenize\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0menglish_text\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      2\u001b[0m \u001b[0mar_words\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mnltk\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mword_tokenize\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0marabic_text\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/nltk/tokenize/__init__.py\u001b[0m in \u001b[0;36mword_tokenize\u001b[0;34m(text, language, preserve_line)\u001b[0m\n\u001b[1;32m    126\u001b[0m     \u001b[0;34m:\u001b[0m\u001b[0mtype\u001b[0m \u001b[0mpreserver_line\u001b[0m\u001b[0;34m:\u001b[0m \u001b[0mbool\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    127\u001b[0m     \"\"\"\n\u001b[0;32m--> 128\u001b[0;31m     \u001b[0msentences\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m[\u001b[0m\u001b[0mtext\u001b[0m\u001b[0;34m]\u001b[0m \u001b[0;32mif\u001b[0m \u001b[0mpreserve_line\u001b[0m \u001b[0;32melse\u001b[0m \u001b[0msent_tokenize\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mtext\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mlanguage\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    129\u001b[0m     return [token for sent in sentences\n\u001b[1;32m    130\u001b[0m             for token in _treebank_word_tokenizer.tokenize(sent)]\n",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/nltk/tokenize/__init__.py\u001b[0m in \u001b[0;36msent_tokenize\u001b[0;34m(text, language)\u001b[0m\n\u001b[1;32m     92\u001b[0m     \u001b[0;34m:\u001b[0m\u001b[0mparam\u001b[0m \u001b[0mlanguage\u001b[0m\u001b[0;34m:\u001b[0m \u001b[0mthe\u001b[0m \u001b[0mmodel\u001b[0m \u001b[0mname\u001b[0m \u001b[0;32min\u001b[0m \u001b[0mthe\u001b[0m \u001b[0mPunkt\u001b[0m \u001b[0mcorpus\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     93\u001b[0m     \"\"\"\n\u001b[0;32m---> 94\u001b[0;31m     \u001b[0mtokenizer\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mload\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'tokenizers/punkt/{0}.pickle'\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mformat\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mlanguage\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     95\u001b[0m     \u001b[0;32mreturn\u001b[0m \u001b[0mtokenizer\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mtokenize\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mtext\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     96\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/nltk/data.py\u001b[0m in \u001b[0;36mload\u001b[0;34m(resource_url, format, cache, verbose, logic_parser, fstruct_reader, encoding)\u001b[0m\n\u001b[1;32m    832\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    833\u001b[0m     \u001b[0;31m# Load the resource.\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 834\u001b[0;31m     \u001b[0mopened_resource\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0m_open\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mresource_url\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    835\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    836\u001b[0m     \u001b[0;32mif\u001b[0m \u001b[0mformat\u001b[0m \u001b[0;34m==\u001b[0m \u001b[0;34m'raw'\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/nltk/data.py\u001b[0m in \u001b[0;36m_open\u001b[0;34m(resource_url)\u001b[0m\n\u001b[1;32m    950\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    951\u001b[0m     \u001b[0;32mif\u001b[0m \u001b[0mprotocol\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0;32mNone\u001b[0m \u001b[0;32mor\u001b[0m \u001b[0mprotocol\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mlower\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;34m==\u001b[0m \u001b[0;34m'nltk'\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 952\u001b[0;31m         \u001b[0;32mreturn\u001b[0m \u001b[0mfind\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mpath_\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mpath\u001b[0m \u001b[0;34m+\u001b[0m \u001b[0;34m[\u001b[0m\u001b[0;34m''\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mopen\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    953\u001b[0m     \u001b[0;32melif\u001b[0m \u001b[0mprotocol\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mlower\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;34m==\u001b[0m \u001b[0;34m'file'\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    954\u001b[0m         \u001b[0;31m# urllib might not use mode='rb', so handle this one ourselves:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/nltk/data.py\u001b[0m in \u001b[0;36mfind\u001b[0;34m(resource_name, paths)\u001b[0m\n\u001b[1;32m    671\u001b[0m     \u001b[0msep\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m'*'\u001b[0m \u001b[0;34m*\u001b[0m \u001b[0;36m70\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    672\u001b[0m     \u001b[0mresource_not_found\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m'\\n%s\\n%s\\n%s\\n'\u001b[0m \u001b[0;34m%\u001b[0m \u001b[0;34m(\u001b[0m\u001b[0msep\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mmsg\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0msep\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 673\u001b[0;31m     \u001b[0;32mraise\u001b[0m \u001b[0mLookupError\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mresource_not_found\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    674\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    675\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mLookupError\u001b[0m: \n**********************************************************************\n  Resource \u001b[93mpunkt\u001b[0m not found.\n  Please use the NLTK Downloader to obtain the resource:\n\n  \u001b[31m>>> import nltk\n  >>> nltk.download('punkt')\n  \u001b[0m\n  Searched in:\n    - '/root/nltk_data'\n    - '/usr/share/nltk_data'\n    - '/usr/local/share/nltk_data'\n    - '/usr/lib/nltk_data'\n    - '/usr/local/lib/nltk_data'\n    - '/usr/nltk_data'\n    - '/usr/lib/nltk_data'\n    - ''\n**********************************************************************\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "xjxSm7bYRo9Z"
+      },
+      "source": [
+        "Using word_tokenize() to split up our text into words:<br>\n",
+        "\n",
+        "       - Perhaps \n",
+        "       - one \n",
+        "       - of \n",
+        "       - the \n",
+        "       - most\n",
+        "\n",
+        "But NLTK were also considered these strings to be words:\n",
+        "\n",
+        "       - ','\n",
+        "       - '.'\n",
+        "\n",
+        "<b>Arabic Text Also The same Things</b>\n",
+        "    e.g :\n",
+        "    \n",
+        "    \n",
+        "        \n",
+        "         'أحد',\n",
+        "         'أهم',\n",
+        "         'التطورات',\n",
+        "         'التي',\n",
+        "         'قامت',\n",
+        "         'بها',"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "5vGX8FfSRo9b"
+      },
+      "source": [
+        "#### Tokenizing by sentence"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 612
+        },
+        "id": "xaBCvg0mRo9c",
+        "outputId": "6564c35e-3aaf-475a-91d3-25df70e92bbc"
+      },
+      "source": [
+        "eng_sent = sent_tokenize(english_text)\n",
+        "ar_sent = sent_tokenize(arabic_text)"
+      ],
+      "execution_count": 11,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "LookupError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mLookupError\u001b[0m                               Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-11-6009e78199cd>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0meng_sent\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0msent_tokenize\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0menglish_text\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      2\u001b[0m \u001b[0mar_sent\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0msent_tokenize\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0marabic_text\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/nltk/tokenize/__init__.py\u001b[0m in \u001b[0;36msent_tokenize\u001b[0;34m(text, language)\u001b[0m\n\u001b[1;32m     92\u001b[0m     \u001b[0;34m:\u001b[0m\u001b[0mparam\u001b[0m \u001b[0mlanguage\u001b[0m\u001b[0;34m:\u001b[0m \u001b[0mthe\u001b[0m \u001b[0mmodel\u001b[0m \u001b[0mname\u001b[0m \u001b[0;32min\u001b[0m \u001b[0mthe\u001b[0m \u001b[0mPunkt\u001b[0m \u001b[0mcorpus\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     93\u001b[0m     \"\"\"\n\u001b[0;32m---> 94\u001b[0;31m     \u001b[0mtokenizer\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mload\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'tokenizers/punkt/{0}.pickle'\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mformat\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mlanguage\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     95\u001b[0m     \u001b[0;32mreturn\u001b[0m \u001b[0mtokenizer\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mtokenize\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mtext\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     96\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/nltk/data.py\u001b[0m in \u001b[0;36mload\u001b[0;34m(resource_url, format, cache, verbose, logic_parser, fstruct_reader, encoding)\u001b[0m\n\u001b[1;32m    832\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    833\u001b[0m     \u001b[0;31m# Load the resource.\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 834\u001b[0;31m     \u001b[0mopened_resource\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0m_open\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mresource_url\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    835\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    836\u001b[0m     \u001b[0;32mif\u001b[0m \u001b[0mformat\u001b[0m \u001b[0;34m==\u001b[0m \u001b[0;34m'raw'\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/nltk/data.py\u001b[0m in \u001b[0;36m_open\u001b[0;34m(resource_url)\u001b[0m\n\u001b[1;32m    950\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    951\u001b[0m     \u001b[0;32mif\u001b[0m \u001b[0mprotocol\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0;32mNone\u001b[0m \u001b[0;32mor\u001b[0m \u001b[0mprotocol\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mlower\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;34m==\u001b[0m \u001b[0;34m'nltk'\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 952\u001b[0;31m         \u001b[0;32mreturn\u001b[0m \u001b[0mfind\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mpath_\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mpath\u001b[0m \u001b[0;34m+\u001b[0m \u001b[0;34m[\u001b[0m\u001b[0;34m''\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mopen\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    953\u001b[0m     \u001b[0;32melif\u001b[0m \u001b[0mprotocol\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mlower\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;34m==\u001b[0m \u001b[0;34m'file'\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    954\u001b[0m         \u001b[0;31m# urllib might not use mode='rb', so handle this one ourselves:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/nltk/data.py\u001b[0m in \u001b[0;36mfind\u001b[0;34m(resource_name, paths)\u001b[0m\n\u001b[1;32m    671\u001b[0m     \u001b[0msep\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m'*'\u001b[0m \u001b[0;34m*\u001b[0m \u001b[0;36m70\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    672\u001b[0m     \u001b[0mresource_not_found\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m'\\n%s\\n%s\\n%s\\n'\u001b[0m \u001b[0;34m%\u001b[0m \u001b[0;34m(\u001b[0m\u001b[0msep\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mmsg\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0msep\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 673\u001b[0;31m     \u001b[0;32mraise\u001b[0m \u001b[0mLookupError\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mresource_not_found\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    674\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    675\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mLookupError\u001b[0m: \n**********************************************************************\n  Resource \u001b[93mpunkt\u001b[0m not found.\n  Please use the NLTK Downloader to obtain the resource:\n\n  \u001b[31m>>> import nltk\n  >>> nltk.download('punkt')\n  \u001b[0m\n  Searched in:\n    - '/root/nltk_data'\n    - '/usr/share/nltk_data'\n    - '/usr/local/share/nltk_data'\n    - '/usr/lib/nltk_data'\n    - '/usr/local/lib/nltk_data'\n    - '/usr/nltk_data'\n    - '/usr/lib/nltk_data'\n    - ''\n**********************************************************************\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "1-ANgYvaRo9d"
+      },
+      "source": [
+        "The <b>sent_tokenize()</b> splite the text into sentences :\n",
+        "\n",
+        "        - 'perhaps one of the most significant advances made by arabic mathematics began at this time with the work of al-khwarizmi, namely the beginnings of algebra.'\n",
+        "        - 'it is important to understand just how significant this new idea was.'\n",
+        "Same Thing In Arabic Text :\n",
+        "        \n",
+        "          "
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "vWn2oTslRo9f"
+      },
+      "source": [
+        "## Filtering Stop Words"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "Bp2u9aTHRo9f"
+      },
+      "source": [
+        "Stop words are words that we want to ignore, so we filter them out of our text when we’re processing it."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ChC9VKX5Ro9g",
+        "outputId": "dea2c30f-b630-4f9f-ab56-603f8f233361"
+      },
+      "source": [
+        "nltk.download(\"stopwords\")\n",
+        "from nltk.corpus import stopwords"
+      ],
+      "execution_count": 12,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[nltk_data] Downloading package stopwords to /root/nltk_data...\n",
+            "[nltk_data]   Unzipping corpora/stopwords.zip.\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "DOxLRhmjRo9h"
+      },
+      "source": [
+        "stop_words_eng = set(stopwords.words(\"english\"))\n",
+        "stop_words_ar = set(stopwords.words(\"arabic\"))"
+      ],
+      "execution_count": 13,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 231
+        },
+        "id": "-EuCQ_mVRo9i",
+        "outputId": "a4d8a019-9484-464d-9373-ac7ae66520fa"
+      },
+      "source": [
+        "filter_english_text = []\n",
+        "for word in eng_words:\n",
+        "    if word.casefold() not in stop_words_eng:\n",
+        "        filter_english_text.append(word)\n",
+        "\n",
+        "# Arabic Text using List Comprehension\n",
+        "filter_arabic_text = [\n",
+        "    word for word in ar_words if word not in stop_words_ar\n",
+        "]\n",
+        "\n",
+        "filter_arabic_text"
+      ],
+      "execution_count": 14,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "NameError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-14-c7801af309e0>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0mfilter_english_text\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m[\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 2\u001b[0;31m \u001b[0;32mfor\u001b[0m \u001b[0mword\u001b[0m \u001b[0;32min\u001b[0m \u001b[0meng_words\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      3\u001b[0m     \u001b[0;32mif\u001b[0m \u001b[0mword\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcasefold\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0;32min\u001b[0m \u001b[0mstop_words_eng\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m         \u001b[0mfilter_english_text\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mappend\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mword\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mNameError\u001b[0m: name 'eng_words' is not defined"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "s5V2ximNRo9k"
+      },
+      "source": [
+        "### Stemming  English Text"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "8bUGWcL7Ro9l"
+      },
+      "source": [
+        "<b>reduce words to their root</b>, which is the core part of a word."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "H1o9AV3KRo9m"
+      },
+      "source": [
+        "from nltk.stem import PorterStemmer"
+      ],
+      "execution_count": 15,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "llpw4T1JRo9m"
+      },
+      "source": [
+        "# Instanciate PorterStemmer Object\n",
+        "\n",
+        "stem = PorterStemmer()"
+      ],
+      "execution_count": 16,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "sxbWCKUkRo9o",
+        "outputId": "3b8f4eb3-462f-4548-ed7f-e34b684835e3"
+      },
+      "source": [
+        "english_words_stem = [stem.stem(word) for word in filter_english_text]\n",
+        "english_words_stem"
+      ],
+      "execution_count": 17,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "[]"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 17
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "b7Izz5pVRo9p"
+      },
+      "source": [
+        "### Stemming  Arabic Text"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "lKkKrngNRo9q"
+      },
+      "source": [
+        "from snowballstemmer import stemmer"
+      ],
+      "execution_count": 18,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "p2pMf8e4Ro9r",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 214
+        },
+        "outputId": "514ead10-1c26-4594-eaa7-91c7b3ef5dc0"
+      },
+      "source": [
+        "ar_stemmer = stemmer(\"arabic\")\n",
+        "\n",
+        "arabic_words_stem = [ar_stemmer.stemWord(ar_word) for ar_word in filter_arabic_text]\n",
+        "arabic_words_stem"
+      ],
+      "execution_count": 19,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "NameError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-19-4f21b6314d36>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0mar_stemmer\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mstemmer\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"arabic\"\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      2\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 3\u001b[0;31m \u001b[0marabic_words_stem\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m[\u001b[0m\u001b[0mar_stemmer\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mstemWord\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mar_word\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;32mfor\u001b[0m \u001b[0mar_word\u001b[0m \u001b[0;32min\u001b[0m \u001b[0mfilter_arabic_text\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      4\u001b[0m \u001b[0marabic_words_stem\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mNameError\u001b[0m: name 'filter_arabic_text' is not defined"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "YXcACIknRo9t"
+      },
+      "source": [
+        "After Taking a look at the result , some of the output is difinitvely correct e.g:\n",
+        "\n",
+        "      \n",
+        "      -  التطورات -  تطور\n",
+        "      -  عدد  -  الأعداد \n",
+        "      - للتطور -   تطور \n",
+        "\n",
+        "But in the other hand the Stemmer give us a wrong result :\n",
+        "\n",
+        "        - ربم\n",
+        "        - رياض\n",
+        "        - خطو\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "JNPMBiz8Ro9v"
+      },
+      "source": [
+        "<b>Understemming</b> happens when two related words should be reduced to the same stem but aren’t. This is a false negative.\n",
+        "<b>Overstemming</b> happens when two unrelated words are reduced to the same stem even though they shouldn’t be. This is a false positive."
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "pN7RCZH1Ro9x"
+      },
+      "source": [
+        "### Tagging Parts of Speech"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "Ai6f1Q8cRo9z"
+      },
+      "source": [
+        "POS tagging, is the task of labeling the words in your text according to their part of speech."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 163
+        },
+        "id": "ZfWb4e8gRo90",
+        "outputId": "8ddd8ca6-64f7-4820-ccce-2f21f45b194e"
+      },
+      "source": [
+        "eng_pos_tag = nltk.pos_tag(eng_words)"
+      ],
+      "execution_count": 20,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "NameError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-20-740ca86f3454>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0meng_pos_tag\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mnltk\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mpos_tag\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0meng_words\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m: name 'eng_words' is not defined"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 595
+        },
+        "id": "Syx684lWRo90",
+        "outputId": "64eba8cf-f1ab-46e4-d36f-1d58d828d11b"
+      },
+      "source": [
+        "nltk.help.upenn_tagset()"
+      ],
+      "execution_count": 21,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "LookupError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mLookupError\u001b[0m                               Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-21-6efdd56c3214>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mnltk\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mhelp\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mupenn_tagset\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/nltk/help.py\u001b[0m in \u001b[0;36mupenn_tagset\u001b[0;34m(tagpattern)\u001b[0m\n\u001b[1;32m     23\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     24\u001b[0m \u001b[0;32mdef\u001b[0m \u001b[0mupenn_tagset\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mtagpattern\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;32mNone\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 25\u001b[0;31m     \u001b[0m_format_tagset\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"upenn_tagset\"\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mtagpattern\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     26\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     27\u001b[0m \u001b[0;31m#####################################################################\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/nltk/help.py\u001b[0m in \u001b[0;36m_format_tagset\u001b[0;34m(tagset, tagpattern)\u001b[0m\n\u001b[1;32m     37\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     38\u001b[0m \u001b[0;32mdef\u001b[0m \u001b[0m_format_tagset\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mtagset\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mtagpattern\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;32mNone\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 39\u001b[0;31m     \u001b[0mtagdict\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mload\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"help/tagsets/\"\u001b[0m \u001b[0;34m+\u001b[0m \u001b[0mtagset\u001b[0m \u001b[0;34m+\u001b[0m \u001b[0;34m\".pickle\"\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     40\u001b[0m     \u001b[0;32mif\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0mtagpattern\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     41\u001b[0m         \u001b[0m_print_entries\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0msorted\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mtagdict\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mtagdict\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/nltk/data.py\u001b[0m in \u001b[0;36mload\u001b[0;34m(resource_url, format, cache, verbose, logic_parser, fstruct_reader, encoding)\u001b[0m\n\u001b[1;32m    832\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    833\u001b[0m     \u001b[0;31m# Load the resource.\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 834\u001b[0;31m     \u001b[0mopened_resource\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0m_open\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mresource_url\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    835\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    836\u001b[0m     \u001b[0;32mif\u001b[0m \u001b[0mformat\u001b[0m \u001b[0;34m==\u001b[0m \u001b[0;34m'raw'\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/nltk/data.py\u001b[0m in \u001b[0;36m_open\u001b[0;34m(resource_url)\u001b[0m\n\u001b[1;32m    950\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    951\u001b[0m     \u001b[0;32mif\u001b[0m \u001b[0mprotocol\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0;32mNone\u001b[0m \u001b[0;32mor\u001b[0m \u001b[0mprotocol\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mlower\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;34m==\u001b[0m \u001b[0;34m'nltk'\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 952\u001b[0;31m         \u001b[0;32mreturn\u001b[0m \u001b[0mfind\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mpath_\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mpath\u001b[0m \u001b[0;34m+\u001b[0m \u001b[0;34m[\u001b[0m\u001b[0;34m''\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mopen\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    953\u001b[0m     \u001b[0;32melif\u001b[0m \u001b[0mprotocol\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mlower\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;34m==\u001b[0m \u001b[0;34m'file'\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    954\u001b[0m         \u001b[0;31m# urllib might not use mode='rb', so handle this one ourselves:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/nltk/data.py\u001b[0m in \u001b[0;36mfind\u001b[0;34m(resource_name, paths)\u001b[0m\n\u001b[1;32m    671\u001b[0m     \u001b[0msep\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m'*'\u001b[0m \u001b[0;34m*\u001b[0m \u001b[0;36m70\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    672\u001b[0m     \u001b[0mresource_not_found\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m'\\n%s\\n%s\\n%s\\n'\u001b[0m \u001b[0;34m%\u001b[0m \u001b[0;34m(\u001b[0m\u001b[0msep\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mmsg\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0msep\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 673\u001b[0;31m     \u001b[0;32mraise\u001b[0m \u001b[0mLookupError\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mresource_not_found\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    674\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    675\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mLookupError\u001b[0m: \n**********************************************************************\n  Resource \u001b[93mtagsets\u001b[0m not found.\n  Please use the NLTK Downloader to obtain the resource:\n\n  \u001b[31m>>> import nltk\n  >>> nltk.download('tagsets')\n  \u001b[0m\n  Searched in:\n    - '/root/nltk_data'\n    - '/usr/share/nltk_data'\n    - '/usr/local/share/nltk_data'\n    - '/usr/lib/nltk_data'\n    - '/usr/local/lib/nltk_data'\n    - '/usr/nltk_data'\n    - '/usr/lib/nltk_data'\n    - ''\n**********************************************************************\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "1-AEksiGRo92",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 180
+        },
+        "outputId": "972338d3-cd72-4ac0-dfa8-5e542eeb5b5b"
+      },
+      "source": [
+        "ar_pos_tag = nltk.pos_tag(ar_words) \n",
+        "#like every one said its not workin in the arabic lang (NNP for all tokens)"
+      ],
+      "execution_count": 22,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "NameError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-22-08dbcf77100a>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mar_pos_tag\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mnltk\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mpos_tag\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mar_words\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      2\u001b[0m \u001b[0;31m#like every one said its not workin in the arabic lang (NNP for all tokens)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mNameError\u001b[0m: name 'ar_words' is not defined"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "erDIgxaKRo93"
+      },
+      "source": [
+        "### Lemmatizing"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "xdue-0pBRo93"
+      },
+      "source": [
+        "A lemma is a word that represents a whole group of words, and that group of words is called a lexeme."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "_JqG9Lc0Ro94"
+      },
+      "source": [
+        "from nltk.stem import WordNetLemmatizer"
+      ],
+      "execution_count": 23,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "FnQ_yDfdRo94"
+      },
+      "source": [
+        "lemmatizer = WordNetLemmatizer()"
+      ],
+      "execution_count": 24,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "7HlBsLgXRo95",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 163
+        },
+        "outputId": "7b9774ac-0d68-4cf3-81d9-871a4b52fcd4"
+      },
+      "source": [
+        "lemmatized_words = [lemmatizer.lemmatize(word) for word in eng_words]"
+      ],
+      "execution_count": 25,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "NameError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-25-f42b44907e82>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mlemmatized_words\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m[\u001b[0m\u001b[0mlemmatizer\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mlemmatize\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mword\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;32mfor\u001b[0m \u001b[0mword\u001b[0m \u001b[0;32min\u001b[0m \u001b[0meng_words\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m: name 'eng_words' is not defined"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "y2re32HNRo96",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 163
+        },
+        "outputId": "ca1fecf0-9561-4b4b-f36e-f1aa5a1be6b5"
+      },
+      "source": [
+        "lemmatized_words"
+      ],
+      "execution_count": 26,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "NameError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-26-02dafb870347>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mlemmatized_words\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m: name 'lemmatized_words' is not defined"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "5AFAUBbPRo9-"
+      },
+      "source": [
+        "### Chunking"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "pjMdDTJiRo9-"
+      },
+      "source": [
+        "While <b>tokenizing</b> allows you to identify words and sentences, <b>chunking</b> allows you to identify phrases."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "uFUmkNjlRo9_"
+      },
+      "source": [
+        "grammar = \"NP: {<DT>?<JJ>*<NN>}\""
+      ],
+      "execution_count": 27,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "Bp-mzc1FRo9_"
+      },
+      "source": [
+        "<b>NP</b> stands for noun phrase\n",
+        "       \n",
+        "        Start with an optional (?) determiner ('DT')\n",
+        "        Can have any number (*) of adjectives (JJ)\n",
+        "        End with a noun (<NN>)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "6qi5Xl8wRo-A"
+      },
+      "source": [
+        "chunk_parser = nltk.RegexpParser(grammar)"
+      ],
+      "execution_count": 28,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "TCAWPQMuRo-A",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "dbd0c33b-a8e0-49c0-bf09-50ee925df477"
+      },
+      "source": [
+        "!pip install ghostscript"
+      ],
+      "execution_count": 29,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Collecting ghostscript\n",
+            "  Downloading ghostscript-0.7-py2.py3-none-any.whl (25 kB)\n",
+            "Requirement already satisfied: setuptools>=38.6.0 in /usr/local/lib/python3.7/dist-packages (from ghostscript) (57.4.0)\n",
+            "Installing collected packages: ghostscript\n",
+            "Successfully installed ghostscript-0.7\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "IVaWlJPNRo-C",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 425
+        },
+        "outputId": "1e8bbd2b-c52c-49f0-de2f-3650c95b2c61"
+      },
+      "source": [
+        "import ghostscript"
+      ],
+      "execution_count": 30,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "RuntimeError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mOSError\u001b[0m                                   Traceback (most recent call last)",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/ghostscript/_gsprint.py\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m    523\u001b[0m     \u001b[0;32mtry\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 524\u001b[0;31m         \u001b[0mlibgs\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mcdll\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mLoadLibrary\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"libgs.so\"\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    525\u001b[0m     \u001b[0;32mexcept\u001b[0m \u001b[0mOSError\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/lib/python3.7/ctypes/__init__.py\u001b[0m in \u001b[0;36mLoadLibrary\u001b[0;34m(self, name)\u001b[0m\n\u001b[1;32m    441\u001b[0m     \u001b[0;32mdef\u001b[0m \u001b[0mLoadLibrary\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mname\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 442\u001b[0;31m         \u001b[0;32mreturn\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_dlltype\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mname\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    443\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/lib/python3.7/ctypes/__init__.py\u001b[0m in \u001b[0;36m__init__\u001b[0;34m(self, name, mode, handle, use_errno, use_last_error)\u001b[0m\n\u001b[1;32m    363\u001b[0m         \u001b[0;32mif\u001b[0m \u001b[0mhandle\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0;32mNone\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 364\u001b[0;31m             \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_handle\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0m_dlopen\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_name\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mmode\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    365\u001b[0m         \u001b[0;32melse\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mOSError\u001b[0m: libgs.so: cannot open shared object file: No such file or directory",
+            "\nDuring handling of the above exception, another exception occurred:\n",
+            "\u001b[0;31mRuntimeError\u001b[0m                              Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-30-5a5d53aa56b1>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0;32mimport\u001b[0m \u001b[0mghostscript\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/ghostscript/__init__.py\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m     30\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     31\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0msys\u001b[0m \u001b[0;31m# :todo: remove, debugging only\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 32\u001b[0;31m \u001b[0;32mfrom\u001b[0m \u001b[0;34m.\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0m_gsprint\u001b[0m \u001b[0;32mas\u001b[0m \u001b[0mgs\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     33\u001b[0m \u001b[0m__version__\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mgs\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m__version__\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     34\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/ghostscript/_gsprint.py\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m    528\u001b[0m         \u001b[0mlibgs\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mctypes\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mutil\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mfind_library\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'gs'\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    529\u001b[0m         \u001b[0;32mif\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0mlibgs\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 530\u001b[0;31m             \u001b[0;32mraise\u001b[0m \u001b[0mRuntimeError\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'Can not find Ghostscript library (libgs)'\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    531\u001b[0m         \u001b[0mlibgs\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mcdll\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mLoadLibrary\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mlibgs\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    532\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mRuntimeError\u001b[0m: Can not find Ghostscript library (libgs)"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "HduU1g6vRo-E",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 163
+        },
+        "outputId": "4d2880b2-3db1-480a-ea94-05a7cba514a3"
+      },
+      "source": [
+        "chunk_parser.parse(eng_pos_tag)"
+      ],
+      "execution_count": 31,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "NameError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-31-937a49ea64e3>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mchunk_parser\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mparse\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0meng_pos_tag\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m: name 'eng_pos_tag' is not defined"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "CX72DczzRo-F",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 163
+        },
+        "outputId": "1397095d-47d7-46bf-ad41-c370b930ac36"
+      },
+      "source": [
+        "tree.draw()"
+      ],
+      "execution_count": 32,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "NameError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-32-aab2399725d5>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mtree\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdraw\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m: name 'tree' is not defined"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "WG4VsZsVRo-G"
+      },
+      "source": [
+        "### Printing Dependencies"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "vmnGB40lRo-G",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 493
+        },
+        "outputId": "10993daa-b213-4d59-a941-8897924273ed"
+      },
+      "source": [
+        "%load_ext watermark"
+      ],
+      "execution_count": 33,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "ModuleNotFoundError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mModuleNotFoundError\u001b[0m                       Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-33-24f70a0ee0e5>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mget_ipython\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mmagic\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'load_ext watermark'\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/IPython/core/interactiveshell.py\u001b[0m in \u001b[0;36mmagic\u001b[0;34m(self, arg_s)\u001b[0m\n\u001b[1;32m   2158\u001b[0m         \u001b[0mmagic_name\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0m_\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mmagic_arg_s\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0marg_s\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mpartition\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m' '\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2159\u001b[0m         \u001b[0mmagic_name\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mmagic_name\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mlstrip\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mprefilter\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mESC_MAGIC\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 2160\u001b[0;31m         \u001b[0;32mreturn\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mrun_line_magic\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mmagic_name\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mmagic_arg_s\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   2161\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2162\u001b[0m     \u001b[0;31m#-------------------------------------------------------------------------\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/IPython/core/interactiveshell.py\u001b[0m in \u001b[0;36mrun_line_magic\u001b[0;34m(self, magic_name, line)\u001b[0m\n\u001b[1;32m   2079\u001b[0m                 \u001b[0mkwargs\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m'local_ns'\u001b[0m\u001b[0;34m]\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0msys\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_getframe\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mstack_depth\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mf_locals\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2080\u001b[0m             \u001b[0;32mwith\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mbuiltin_trap\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 2081\u001b[0;31m                 \u001b[0mresult\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mfn\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m*\u001b[0m\u001b[0margs\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m**\u001b[0m\u001b[0mkwargs\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   2082\u001b[0m             \u001b[0;32mreturn\u001b[0m \u001b[0mresult\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2083\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m<decorator-gen-56>\u001b[0m in \u001b[0;36mload_ext\u001b[0;34m(self, module_str)\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/IPython/core/magic.py\u001b[0m in \u001b[0;36m<lambda>\u001b[0;34m(f, *a, **k)\u001b[0m\n\u001b[1;32m    186\u001b[0m     \u001b[0;31m# but it's overkill for just that one bit of state.\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    187\u001b[0m     \u001b[0;32mdef\u001b[0m \u001b[0mmagic_deco\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0marg\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 188\u001b[0;31m         \u001b[0mcall\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;32mlambda\u001b[0m \u001b[0mf\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m*\u001b[0m\u001b[0ma\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m**\u001b[0m\u001b[0mk\u001b[0m\u001b[0;34m:\u001b[0m \u001b[0mf\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m*\u001b[0m\u001b[0ma\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m**\u001b[0m\u001b[0mk\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    189\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    190\u001b[0m         \u001b[0;32mif\u001b[0m \u001b[0mcallable\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0marg\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/IPython/core/magics/extension.py\u001b[0m in \u001b[0;36mload_ext\u001b[0;34m(self, module_str)\u001b[0m\n\u001b[1;32m     35\u001b[0m         \u001b[0;32mif\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0mmodule_str\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     36\u001b[0m             \u001b[0;32mraise\u001b[0m \u001b[0mUsageError\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'Missing module name.'\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 37\u001b[0;31m         \u001b[0mres\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mshell\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mextension_manager\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mload_extension\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mmodule_str\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     38\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     39\u001b[0m         \u001b[0;32mif\u001b[0m \u001b[0mres\u001b[0m \u001b[0;34m==\u001b[0m \u001b[0;34m'already loaded'\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/IPython/core/extensions.py\u001b[0m in \u001b[0;36mload_extension\u001b[0;34m(self, module_str)\u001b[0m\n\u001b[1;32m     81\u001b[0m             \u001b[0;32mif\u001b[0m \u001b[0mmodule_str\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0;32min\u001b[0m \u001b[0msys\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mmodules\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     82\u001b[0m                 \u001b[0;32mwith\u001b[0m \u001b[0mprepended_to_syspath\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mipython_extension_dir\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 83\u001b[0;31m                     \u001b[0m__import__\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mmodule_str\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     84\u001b[0m             \u001b[0mmod\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0msys\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mmodules\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0mmodule_str\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     85\u001b[0m             \u001b[0;32mif\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_call_load_ipython_extension\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mmod\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mModuleNotFoundError\u001b[0m: No module named 'watermark'",
+            "",
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0;32m\nNOTE: If your import is failing due to a missing package, you can\nmanually install dependencies using either !pip or !apt.\n\nTo view examples of installing some common dependencies, click the\n\"Open Examples\" button below.\n\u001b[0;31m---------------------------------------------------------------------------\u001b[0m\n"
+          ],
+          "errorDetails": {
+            "actions": [
+              {
+                "action": "open_url",
+                "actionText": "Open Examples",
+                "url": "/notebooks/snippets/importing_libraries.ipynb"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "hch2y_G4Ro-H",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "bff0b08a-1fa1-4187-d142-1ce078cdbd6c"
+      },
+      "source": [
+        "%watermark -v -m -p nltk"
+      ],
+      "execution_count": 34,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "UsageError: Line magic function `%watermark` not found.\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "Nvy_i0NdRo-I",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "89615310-28cd-4b0c-d1a0-145fbe9d93d1"
+      },
+      "source": [
+        "%watermark --iversions"
+      ],
+      "execution_count": 35,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "UsageError: Line magic function `%watermark` not found.\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
